@@ -68,34 +68,46 @@ export default function TestSelectionScreen({ navigation }: TestSelectionScreenP
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50">
-      <ScrollView className="flex-1">
-        <View className="px-6 pt-8 pb-6">
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#f9fafb' }}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={{ padding: 24, paddingTop: 32, paddingBottom: 24 }}>
           {/* Header */}
-          <View className="mb-8">
-            <Text className="text-2xl font-bold text-gray-900 mb-2">
+          <View style={{ marginBottom: 32 }}>
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#111827', marginBottom: 8 }}>
               Welcome back, {currentUser?.name?.split(' ')[0]}!
             </Text>
-            <Text className="text-gray-600">
+            <Text style={{ fontSize: 16, color: '#6b7280' }}>
               Choose a subject to begin your practice test
             </Text>
           </View>
 
           {/* Subject Cards */}
-          <View className="space-y-4">
-            {subjects.map((subject) => (
+          <View>
+            {subjects.map((subject, index) => (
               <Pressable
                 key={subject.name}
                 onPress={() => subject.available && handleSubjectSelect(subject.name as any)}
                 disabled={!subject.available}
-                className={`p-6 rounded-2xl border-2 ${
-                  subject.available 
-                    ? 'bg-white border-gray-200' 
-                    : 'bg-gray-100 border-gray-200 opacity-60'
-                }`}
+                style={{
+                  padding: 24,
+                  borderRadius: 16,
+                  borderWidth: 2,
+                  borderColor: '#e5e7eb',
+                  backgroundColor: subject.available ? '#ffffff' : '#f3f4f6',
+                  opacity: subject.available ? 1 : 0.6,
+                  marginBottom: index < subjects.length - 1 ? 16 : 0
+                }}
               >
-                <View className="flex-row items-center">
-                  <View className={`w-16 h-16 ${subject.color} rounded-2xl items-center justify-center mr-4`}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <View style={{ 
+                    width: 64, 
+                    height: 64, 
+                    backgroundColor: subject.color === 'bg-blue-500' ? '#3b82f6' : subject.color === 'bg-green-500' ? '#10b981' : subject.color === 'bg-purple-500' ? '#8b5cf6' : '#f59e0b',
+                    borderRadius: 16,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginRight: 16
+                  }}>
                     <Ionicons 
                       name={subject.icon as any} 
                       size={32} 
@@ -103,25 +115,34 @@ export default function TestSelectionScreen({ navigation }: TestSelectionScreenP
                     />
                   </View>
                   
-                  <View className="flex-1">
-                    <View className="flex-row items-center">
-                      <Text className="text-xl font-bold text-gray-900">
+                  <View style={{ flex: 1 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                      <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#111827' }}>
                         {subject.name}
                       </Text>
                       {!subject.available && (
-                        <Text className="ml-2 text-xs font-semibold text-gray-500 bg-gray-200 px-2 py-1 rounded-full">
+                        <Text style={{ 
+                          marginLeft: 8, 
+                          fontSize: 12, 
+                          fontWeight: '600', 
+                          color: '#6b7280',
+                          backgroundColor: '#e5e7eb',
+                          paddingHorizontal: 8,
+                          paddingVertical: 4,
+                          borderRadius: 9999
+                        }}>
                           COMING SOON
                         </Text>
                       )}
                     </View>
-                    <Text className="text-gray-600 mt-1">
+                    <Text style={{ fontSize: 14, color: '#6b7280', marginTop: 4 }}>
                       {subject.description}
                     </Text>
                     
                     {subject.available && (
-                      <View className="flex-row items-center mt-3">
-                        <Ionicons name="play-circle" size={20} color="#3B82F6" />
-                        <Text className="text-blue-600 font-semibold ml-2">
+                      <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 12 }}>
+                        <Ionicons name="play-circle" size={20} color="#3b82f6" />
+                        <Text style={{ color: '#3b82f6', fontWeight: '600', marginLeft: 8 }}>
                           Start Practice Test
                         </Text>
                       </View>
@@ -133,13 +154,20 @@ export default function TestSelectionScreen({ navigation }: TestSelectionScreenP
           </View>
 
           {/* Admin Access */}
-          <View className="mt-8 mb-8">
+          <View style={{ marginTop: 32, marginBottom: 32 }}>
             <Pressable
               onPress={() => navigation.navigate('AdminLogin')}
-              className="bg-gray-800 p-4 rounded-xl flex-row items-center justify-center"
+              style={{
+                backgroundColor: '#1f2937',
+                padding: 16,
+                borderRadius: 12,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
             >
               <Ionicons name="settings-outline" size={20} color="white" />
-              <Text className="text-white font-semibold ml-2">
+              <Text style={{ color: 'white', fontWeight: '600', marginLeft: 8 }}>
                 Admin Access
               </Text>
             </Pressable>
