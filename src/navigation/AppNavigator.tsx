@@ -31,41 +31,30 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
-  try {
-    const { currentUser } = useTestStore();
+  const { currentUser } = useTestStore();
 
-    console.log('AppNavigator rendering, currentUser:', currentUser);
+  console.log('AppNavigator rendering, currentUser:', currentUser);
 
-    return (
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-          animation: 'slide_from_right',
-        }}
-      >
-        {!currentUser ? (
-          <Stack.Screen name="Registration" component={RegistrationScreen} />
-        ) : (
-          <>
-            <Stack.Screen name="TestSelection" component={TestSelectionScreen} />
-            <Stack.Screen name="TestScreen" component={TestScreen} />
-            <Stack.Screen name="PassageResults" component={PassageResultsScreen} />
-            <Stack.Screen name="FinalResults" component={FinalResultsScreen} />
-            <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
-            <Stack.Screen name="AdminDashboard" component={AdminDashboardScreen} />
-            <Stack.Screen name="AddPassage" component={AddPassageScreen} />
-          </>
-        )}
-      </Stack.Navigator>
-    );
-  } catch (error) {
-    console.error('AppNavigator error:', error);
-    return (
-      <div style={{ padding: '20px', textAlign: 'center' }}>
-        <h1>Navigation Error</h1>
-        <p>Please check the console for details.</p>
-        <pre>{error?.toString()}</pre>
-      </div>
-    );
-  }
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        animation: 'slide_from_right',
+      }}
+    >
+      {!currentUser ? (
+        <Stack.Screen name="Registration" component={RegistrationScreen} />
+      ) : (
+        <>
+          <Stack.Screen name="TestSelection" component={TestSelectionScreen} />
+          <Stack.Screen name="TestScreen" component={TestScreen} />
+          <Stack.Screen name="PassageResults" component={PassageResultsScreen} />
+          <Stack.Screen name="FinalResults" component={FinalResultsScreen} />
+          <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
+          <Stack.Screen name="AdminDashboard" component={AdminDashboardScreen} />
+          <Stack.Screen name="AddPassage" component={AddPassageScreen} />
+        </>
+      )}
+    </Stack.Navigator>
+  );
 }

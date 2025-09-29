@@ -28,35 +28,14 @@ const openai_api_key = Constants.expoConfig.extra.apikey;
 export default function App() {
   console.log('App component rendering...');
 
-  // Simple test component to isolate the issue
   return (
-    <div style={{ 
-      padding: '20px', 
-      textAlign: 'center', 
-      fontFamily: 'Arial, sans-serif',
-      backgroundColor: '#f0f0f0',
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }}>
-      <h1 style={{ color: '#333', marginBottom: '20px' }}>ACT Test Prep</h1>
-      <p style={{ color: '#666', marginBottom: '30px' }}>App is loading successfully!</p>
-      <button 
-        style={{
-          padding: '10px 20px',
-          backgroundColor: '#007AFF',
-          color: 'white',
-          border: 'none',
-          borderRadius: '8px',
-          fontSize: '16px',
-          cursor: 'pointer'
-        }}
-        onClick={() => alert('Button works!')}
-      >
-        Test Button
-      </button>
-    </div>
+    <GestureHandlerRootView className="flex-1">
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <AppNavigator />
+          <StatusBar style="auto" />
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
