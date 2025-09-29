@@ -46,9 +46,6 @@ export default function TestSelectionScreen({ navigation }: TestSelectionScreenP
   
   console.log('TestSelectionScreen rendering, currentUser:', currentUser);
 
-  // Add error boundary for this component
-  try {
-
   const handleSubjectSelect = async (subject: 'English' | 'Math' | 'Reading' | 'Science') => {
     try {
       // Set the passages for the test
@@ -176,26 +173,4 @@ export default function TestSelectionScreen({ navigation }: TestSelectionScreenP
     </SafeAreaView>
   );
   */
-  } catch (error) {
-    console.error('TestSelectionScreen error:', error);
-    return (
-      <SafeAreaView className="flex-1 bg-gray-50">
-        <View className="flex-1 items-center justify-center p-6">
-          <Text className="text-xl font-bold text-red-600 mb-4">Test Selection Error</Text>
-          <Text className="text-gray-600 text-center mb-4">
-            There was an error loading the test selection screen.
-          </Text>
-          <Text className="text-sm text-gray-500 text-center">
-            Check the console for details.
-          </Text>
-          <Pressable
-            onPress={() => navigation.goBack()}
-            className="mt-6 bg-blue-600 px-6 py-3 rounded-xl"
-          >
-            <Text className="text-white font-semibold">Go Back</Text>
-          </Pressable>
-        </View>
-      </SafeAreaView>
-    );
-  }
 }
