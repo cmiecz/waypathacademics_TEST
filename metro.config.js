@@ -7,4 +7,15 @@ const config = getDefaultConfig(__dirname);
 
 config.resolver.useWatchman = false;
 
-module.exports = withNativeWind(config, { input: './global.css' });
+// Ensure web-specific classes are preserved in production
+config.transformer.minifierConfig = {
+  keep_fnames: true,
+  mangle: {
+    keep_fnames: true,
+  },
+};
+
+module.exports = withNativeWind(config, { 
+  input: './global.css',
+  configPath: './tailwind.config.js'
+});
