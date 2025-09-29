@@ -70,6 +70,30 @@ export default function TestSelectionScreen({ navigation }: TestSelectionScreenP
     }
   };
 
+  // Simple test render first
+  return (
+    <SafeAreaView className="flex-1 bg-gray-50">
+      <View className="flex-1 items-center justify-center p-6">
+        <Text className="text-2xl font-bold text-gray-900 mb-4">
+          Test Selection Screen
+        </Text>
+        <Text className="text-lg text-gray-600 mb-4">
+          Welcome, {currentUser?.name}!
+        </Text>
+        <Pressable
+          onPress={() => handleSubjectSelect('English')}
+          className="bg-blue-600 px-6 py-3 rounded-xl"
+        >
+          <Text className="text-white font-semibold text-lg">
+            Start English Test
+          </Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
+  );
+
+  // Original complex render (commented out for debugging)
+  /*
   return (
     <SafeAreaView className="flex-1 bg-gray-50">
       <ScrollView className="flex-1">
@@ -151,6 +175,7 @@ export default function TestSelectionScreen({ navigation }: TestSelectionScreenP
       </ScrollView>
     </SafeAreaView>
   );
+  */
   } catch (error) {
     console.error('TestSelectionScreen error:', error);
     return (
