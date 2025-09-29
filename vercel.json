@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npx expo export --platform web --output-dir dist && cp -r public/* dist/",
+  "buildCommand": "npx expo export --platform web --output-dir dist",
   "outputDirectory": "dist",
   "installCommand": "npm install --legacy-peer-deps",
   "routes": [
