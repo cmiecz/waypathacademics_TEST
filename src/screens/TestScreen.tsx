@@ -127,21 +127,21 @@ export default function TestScreen({ navigation }: TestScreenProps) {
   const totalPassages = passages.length;
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#ffffff' }}>
       {/* Header */}
-      <View className="flex-row items-center justify-between px-4 py-3 border-b border-gray-200">
-        <View className="flex-row items-center">
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#e5e7eb' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Pressable
             onPress={() => navigation.goBack()}
-            className="w-10 h-10 items-center justify-center"
+            style={{ width: 40, height: 40, alignItems: 'center', justifyContent: 'center' }}
           >
             <Ionicons name="arrow-back" size={24} color="#374151" />
           </Pressable>
-          <View className="ml-2">
-            <Text className="text-lg font-semibold text-gray-900">
+          <View style={{ marginLeft: 8 }}>
+            <Text style={{ fontSize: 18, fontWeight: '600', color: '#111827' }}>
               {currentSession.subject} Test
             </Text>
-            <Text className="text-sm text-gray-600">
+            <Text style={{ fontSize: 14, color: '#6b7280' }}>
               Passage {currentPassageNumber} of {totalPassages}
             </Text>
           </View>
@@ -152,102 +152,123 @@ export default function TestScreen({ navigation }: TestScreenProps) {
 
       <ScrollView 
         ref={scrollViewRef}
-        className="flex-1"
+        style={{ flex: 1 }}
         showsVerticalScrollIndicator={false}
       >
-        <View className="web:max-w-7xl web:mx-auto web:w-full">
-          {/* Question Navigation */}
-          <View className="px-6 py-4 bg-gray-50 border-b border-gray-200">
-            <View className="flex-row items-center justify-between">
-              <Text className="text-sm text-gray-600">
-                Question {currentQuestionIndex + 1} of {currentPassage.questions.length}
+        {/* Question Navigation */}
+        <View style={{ paddingHorizontal: 24, paddingVertical: 16, backgroundColor: '#f9fafb', borderBottomWidth: 1, borderBottomColor: '#e5e7eb' }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Text style={{ fontSize: 14, color: '#6b7280' }}>
+              Question {currentQuestionIndex + 1} of {currentPassage.questions.length}
+            </Text>
+            <View style={{ flexDirection: 'row' }}>
+              {currentPassage.questions.map((_, index) => (
+                <View
+                  key={index}
+                  style={{
+                    width: 12,
+                    height: 12,
+                    borderRadius: 6,
+                    backgroundColor: index === currentQuestionIndex
+                      ? '#3b82f6'
+                      : answers[currentPassage.questions[index].id]
+                      ? '#10b981'
+                      : '#d1d5db',
+                    marginLeft: index > 0 ? 8 : 0
+                  }}
+                />
+              ))}
+            </View>
+          </View>
+        </View>
+
+        {/* Main Content - Side by Side Layout */}
+        <View style={{ flexDirection: 'row', minHeight: 500 }}>
+          {/* Passage - Left Side (50%) */}
+          <View style={{ flex: 1, paddingHorizontal: 24, paddingTop: 24, paddingBottom: 24 }}>
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#111827', marginBottom: 16 }}>
+              {currentPassage.title}
+            </Text>
+            
+            <View style={{ backgroundColor: '#f9fafb', padding: 24, borderRadius: 12 }}>
+              <Text style={{ fontSize: 16, lineHeight: 24, color: '#1f2937' }}>
+                {currentPassage.content}
               </Text>
-              <View className="flex-row space-x-2">
-                {currentPassage.questions.map((_, index) => (
-                  <View
-                    key={index}
-                    className={`w-3 h-3 rounded-full ${
-                      index === currentQuestionIndex
-                        ? 'bg-blue-500'
-                        : answers[currentPassage.questions[index].id]
-                        ? 'bg-green-500'
-                        : 'bg-gray-300'
-                    }`}
-                  />
-                ))}
-              </View>
             </View>
           </View>
 
-          {/* Main Content - Side by Side Layout */}
-          <View className="flex-1 web:flex-row">
-            {/* Passage - Left Side (50%) */}
-            <View className="flex-1 px-6 pt-6 web:pr-4 web:w-1/2">
-              <Text className="text-xl font-bold text-gray-900 mb-4 web:text-2xl">
-                {currentPassage.title}
-              </Text>
-              
-              <View className="bg-gray-50 p-4 rounded-xl web:p-6">
-                <Text className="text-base leading-relaxed text-gray-800 web:text-lg web:leading-relaxed select-text">
-                  {currentPassage.content}
-                </Text>
-              </View>
-            </View>
+          {/* Question - Right Side (50%) */}
+          <View style={{ flex: 1, paddingHorizontal: 24, paddingTop: 24, paddingBottom: 24, borderLeftWidth: 1, borderLeftColor: '#e5e7eb' }}>
+            <Text style={{ fontSize: 18, fontWeight: '600', color: '#111827', marginBottom: 16 }}>
+              {currentQuestion.questionNumber}. {currentQuestion.text}
+            </Text>
 
-            {/* Question - Right Side (50%) */}
-            <View className="flex-1 px-6 pt-6 web:pl-4 web:border-l web:border-gray-200 web:w-1/2">
-              <Text className="text-lg font-semibold text-gray-900 mb-4">
-                {currentQuestion.questionNumber}. {currentQuestion.text}
-              </Text>
-
-              <View className="space-y-2">
-                {Object.entries(currentQuestion.options).map(([letter, option]) => (
-                  <Pressable
-                    key={letter}
-                    onPress={() => handleAnswerSelect(currentQuestion.id, letter as 'A' | 'B' | 'C' | 'D')}
-                    className={`flex-row items-center p-3 rounded-xl border-2 ${
-                      answers[currentQuestion.id] === letter
-                        ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 bg-white'
-                    }`}
-                  >
-                    <View className={`w-6 h-6 rounded-full border-2 items-center justify-center mr-2 ${
-                      answers[currentQuestion.id] === letter
-                        ? 'border-blue-500 bg-blue-500'
-                        : 'border-gray-300'
-                    }`}>
-                      {answers[currentQuestion.id] === letter ? (
-                        <Text className="text-white font-bold text-xs">{letter}</Text>
-                      ) : (
-                        <Text className="text-gray-500 font-bold text-xs">{letter}</Text>
-                      )}
-                    </View>
-                    <Text className={`flex-1 text-sm ${
-                      answers[currentQuestion.id] === letter ? 'text-blue-900' : 'text-gray-700'
-                    }`}>
-                      {option}
+            <View>
+              {Object.entries(currentQuestion.options).map(([letter, option]) => (
+                <Pressable
+                  key={letter}
+                  onPress={() => handleAnswerSelect(currentQuestion.id, letter as 'A' | 'B' | 'C' | 'D')}
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    padding: 12,
+                    borderRadius: 12,
+                    borderWidth: 2,
+                    borderColor: answers[currentQuestion.id] === letter ? '#3b82f6' : '#e5e7eb',
+                    backgroundColor: answers[currentQuestion.id] === letter ? '#eff6ff' : '#ffffff',
+                    marginBottom: 8
+                  }}
+                >
+                  <View style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: 12,
+                    borderWidth: 2,
+                    borderColor: answers[currentQuestion.id] === letter ? '#3b82f6' : '#d1d5db',
+                    backgroundColor: answers[currentQuestion.id] === letter ? '#3b82f6' : 'transparent',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginRight: 8
+                  }}>
+                    <Text style={{
+                      color: answers[currentQuestion.id] === letter ? '#ffffff' : '#6b7280',
+                      fontWeight: 'bold',
+                      fontSize: 12
+                    }}>
+                      {letter}
                     </Text>
-                  </Pressable>
-                ))}
-              </View>
+                  </View>
+                  <Text style={{
+                    flex: 1,
+                    fontSize: 14,
+                    color: answers[currentQuestion.id] === letter ? '#1e3a8a' : '#374151'
+                  }}>
+                    {option}
+                  </Text>
+                </Pressable>
+              ))}
             </View>
           </View>
         </View>
       </ScrollView>
 
       {/* Navigation Buttons */}
-      <View className="px-6 pb-6 pt-4 border-t border-gray-200 bg-white">
-        <View className="flex-row justify-between items-center">
+      <View style={{ paddingHorizontal: 24, paddingBottom: 24, paddingTop: 16, borderTopWidth: 1, borderTopColor: '#e5e7eb', backgroundColor: '#ffffff' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <Pressable
             onPress={handlePreviousQuestion}
             disabled={currentQuestionIndex === 0}
-            className={`py-3 px-6 rounded-xl ${
-              currentQuestionIndex === 0 ? 'bg-gray-200' : 'bg-gray-500'
-            }`}
+            style={{
+              paddingVertical: 12,
+              paddingHorizontal: 24,
+              borderRadius: 12,
+              backgroundColor: currentQuestionIndex === 0 ? '#e5e7eb' : '#6b7280'
+            }}
           >
-            <Text className={`font-semibold ${
-              currentQuestionIndex === 0 ? 'text-gray-400' : 'text-white'
-            }`}>
+            <Text style={{
+              fontWeight: '600',
+              color: currentQuestionIndex === 0 ? '#9ca3af' : '#ffffff'
+            }}>
               Previous
             </Text>
           </Pressable>
@@ -256,22 +277,31 @@ export default function TestScreen({ navigation }: TestScreenProps) {
             <Pressable
               onPress={handleSubmitPassage}
               disabled={!isComplete}
-              className={`py-3 px-6 rounded-xl ${
-                isComplete ? 'bg-blue-600' : 'bg-gray-300'
-              }`}
+              style={{
+                paddingVertical: 12,
+                paddingHorizontal: 24,
+                borderRadius: 12,
+                backgroundColor: isComplete ? '#3b82f6' : '#d1d5db'
+              }}
             >
-              <Text className={`font-semibold ${
-                isComplete ? 'text-white' : 'text-gray-500'
-              }`}>
+              <Text style={{
+                fontWeight: '600',
+                color: isComplete ? '#ffffff' : '#6b7280'
+              }}>
                 Submit Passage
               </Text>
             </Pressable>
           ) : (
             <Pressable
               onPress={handleNextQuestion}
-              className="py-3 px-6 rounded-xl bg-blue-600"
+              style={{
+                paddingVertical: 12,
+                paddingHorizontal: 24,
+                borderRadius: 12,
+                backgroundColor: '#3b82f6'
+              }}
             >
-              <Text className="font-semibold text-white">
+              <Text style={{ fontWeight: '600', color: '#ffffff' }}>
                 Next
               </Text>
             </Pressable>
