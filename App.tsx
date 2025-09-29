@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import React from "react";
 import AppNavigator from "./src/navigation/AppNavigator";
 
 /*
@@ -25,48 +26,106 @@ const openai_api_key = Constants.expoConfig.extra.apikey;
 
 */
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('ErrorBoundary caught an error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ 
+          padding: '20px', 
+          textAlign: 'center', 
+          fontFamily: 'Arial, sans-serif',
+          backgroundColor: '#f0f0f0',
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <h1 style={{ color: '#d32f2f', marginBottom: '20px' }}>App Error</h1>
+          <p style={{ color: '#666', marginBottom: '20px' }}>The app failed to load. Check the console for details.</p>
+          <pre style={{ 
+            backgroundColor: '#fff', 
+            padding: '10px', 
+            borderRadius: '4px', 
+            border: '1px solid #ccc',
+            textAlign: 'left',
+            maxWidth: '600px',
+            overflow: 'auto'
+          }}>
+            {this.state.error?.toString()}
+          </pre>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
+// Simple test component to isolate the issue
+function SimpleTest() {
+  return (
+    <div style={{ 
+      padding: '20px', 
+      textAlign: 'center', 
+      fontFamily: 'Arial, sans-serif',
+      backgroundColor: '#f0f0f0',
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
+      <h1 style={{ color: '#333', marginBottom: '20px' }}>ACT Test Prep - Debug Mode</h1>
+      <p style={{ color: '#666', marginBottom: '30px' }}>Testing basic React rendering...</p>
+      <button 
+        style={{
+          padding: '10px 20px',
+          backgroundColor: '#007AFF',
+          color: 'white',
+          border: 'none',
+          borderRadius: '8px',
+          fontSize: '16px',
+          cursor: 'pointer'
+        }}
+        onClick={() => alert('React is working!')}
+      >
+        Test React
+      </button>
+    </div>
+  );
+}
+
 export default function App() {
   console.log('App component rendering...');
 
-  try {
-    return (
-      <GestureHandlerRootView className="flex-1">
-        <SafeAreaProvider>
-          <NavigationContainer>
-            <AppNavigator />
-            <StatusBar style="auto" />
-          </NavigationContainer>
-        </SafeAreaProvider>
-      </GestureHandlerRootView>
-    );
-  } catch (error) {
-    console.error('App rendering error:', error);
-    return (
-      <div style={{ 
-        padding: '20px', 
-        textAlign: 'center', 
-        fontFamily: 'Arial, sans-serif',
-        backgroundColor: '#f0f0f0',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <h1 style={{ color: '#d32f2f', marginBottom: '20px' }}>App Error</h1>
-        <p style={{ color: '#666', marginBottom: '20px' }}>The app failed to load. Check the console for details.</p>
-        <pre style={{ 
-          backgroundColor: '#fff', 
-          padding: '10px', 
-          borderRadius: '4px', 
-          border: '1px solid #ccc',
-          textAlign: 'left',
-          maxWidth: '600px',
-          overflow: 'auto'
-        }}>
-          {error?.toString()}
-        </pre>
-      </div>
-    );
-  }
+  // Temporarily use simple test component
+  return <SimpleTest />;
+
+  // Original app (commented out for debugging)
+  // return (
+  //   <ErrorBoundary>
+  //     <GestureHandlerRootView className="flex-1">
+  //       <SafeAreaProvider>
+  //         <NavigationContainer>
+  //           <AppNavigator />
+  //           <StatusBar style="auto" />
+  //         </NavigationContainer>
+  //       </SafeAreaProvider>
+  //     </GestureHandlerRootView>
+  //   </ErrorBoundary>
+  // );
 }
