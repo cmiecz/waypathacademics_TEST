@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "ACT Test Prep",
+    "slug": "act-test-prep",
+    "scheme": "act-test-prep",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "name": "ACT Test Prep - Practice Tests",
+      "shortName": "ACT Prep",
+      "description": "Comprehensive ACT practice tests with instant feedback and progress tracking",
+      "lang": "en",
+      "themeColor": "#3B82F6",
+      "backgroundColor": "#ffffff",
+      "display": "standalone"
+    }
+  }
+}
