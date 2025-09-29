@@ -31,30 +31,61 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
-  const { currentUser } = useTestStore();
+  try {
+    const { currentUser } = useTestStore();
 
-  console.log('AppNavigator rendering, currentUser:', currentUser);
+    console.log('AppNavigator rendering, currentUser:', currentUser);
 
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        animation: 'slide_from_right',
-      }}
-    >
-      {!currentUser ? (
-        <Stack.Screen name="Registration" component={RegistrationScreen} />
-      ) : (
-        <>
-          <Stack.Screen name="TestSelection" component={TestSelectionScreen} />
-          <Stack.Screen name="TestScreen" component={TestScreen} />
-          <Stack.Screen name="PassageResults" component={PassageResultsScreen} />
-          <Stack.Screen name="FinalResults" component={FinalResultsScreen} />
-          <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
-          <Stack.Screen name="AdminDashboard" component={AdminDashboardScreen} />
-          <Stack.Screen name="AddPassage" component={AddPassageScreen} />
-        </>
-      )}
-    </Stack.Navigator>
-  );
+    return (
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          animation: 'slide_from_right',
+        }}
+      >
+        {!currentUser ? (
+          <Stack.Screen name="Registration" component={RegistrationScreen} />
+        ) : (
+          <>
+            <Stack.Screen name="TestSelection" component={TestSelectionScreen} />
+            <Stack.Screen name="TestScreen" component={TestScreen} />
+            <Stack.Screen name="PassageResults" component={PassageResultsScreen} />
+            <Stack.Screen name="FinalResults" component={FinalResultsScreen} />
+            <Stack.Screen name="AdminLogin" component={AdminLoginScreen} />
+            <Stack.Screen name="AdminDashboard" component={AdminDashboardScreen} />
+            <Stack.Screen name="AddPassage" component={AddPassageScreen} />
+          </>
+        )}
+      </Stack.Navigator>
+    );
+  } catch (error) {
+    console.error('AppNavigator error:', error);
+    return (
+      <div style={{ 
+        padding: '20px', 
+        textAlign: 'center', 
+        fontFamily: 'Arial, sans-serif',
+        backgroundColor: '#f0f0f0',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <h1 style={{ color: '#d32f2f', marginBottom: '20px' }}>Navigation Error</h1>
+        <p style={{ color: '#666', marginBottom: '20px' }}>Navigation failed to load. Check the console for details.</p>
+        <pre style={{ 
+          backgroundColor: '#fff', 
+          padding: '10px', 
+          borderRadius: '4px', 
+          border: '1px solid #ccc',
+          textAlign: 'left',
+          maxWidth: '600px',
+          overflow: 'auto'
+        }}>
+          {error?.toString()}
+        </pre>
+      </div>
+    );
+  }
 }

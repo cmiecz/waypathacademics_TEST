@@ -28,14 +28,45 @@ const openai_api_key = Constants.expoConfig.extra.apikey;
 export default function App() {
   console.log('App component rendering...');
 
-  return (
-    <GestureHandlerRootView className="flex-1">
-      <SafeAreaProvider>
-        <NavigationContainer>
-          <AppNavigator />
-          <StatusBar style="auto" />
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
-  );
+  try {
+    return (
+      <GestureHandlerRootView className="flex-1">
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <AppNavigator />
+            <StatusBar style="auto" />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    );
+  } catch (error) {
+    console.error('App rendering error:', error);
+    return (
+      <div style={{ 
+        padding: '20px', 
+        textAlign: 'center', 
+        fontFamily: 'Arial, sans-serif',
+        backgroundColor: '#f0f0f0',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <h1 style={{ color: '#d32f2f', marginBottom: '20px' }}>App Error</h1>
+        <p style={{ color: '#666', marginBottom: '20px' }}>The app failed to load. Check the console for details.</p>
+        <pre style={{ 
+          backgroundColor: '#fff', 
+          padding: '10px', 
+          borderRadius: '4px', 
+          border: '1px solid #ccc',
+          textAlign: 'left',
+          maxWidth: '600px',
+          overflow: 'auto'
+        }}>
+          {error?.toString()}
+        </pre>
+      </div>
+    );
+  }
 }
