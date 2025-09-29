@@ -45,6 +45,9 @@ export default function TestSelectionScreen({ navigation }: TestSelectionScreenP
   const { currentUser, startTestSession, setPassages } = useTestStore();
   
   console.log('TestSelectionScreen rendering, currentUser:', currentUser);
+  
+  // Test if component mounts
+  console.log('TestSelectionScreen mounted successfully');
 
   const handleSubjectSelect = async (subject: 'English' | 'Math' | 'Reading' | 'Science') => {
     try {
@@ -67,6 +70,33 @@ export default function TestSelectionScreen({ navigation }: TestSelectionScreenP
     }
   };
 
+  // Simple test to isolate the issue
+  return (
+    <View style={{ flex: 1, backgroundColor: '#f9fafb', padding: 24, justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#111827', marginBottom: 16 }}>
+        Test Selection
+      </Text>
+      <Text style={{ fontSize: 16, color: '#6b7280', marginBottom: 32 }}>
+        Welcome, {currentUser?.name}!
+      </Text>
+      <Pressable
+        onPress={() => handleSubjectSelect('English')}
+        style={{
+          backgroundColor: '#3b82f6',
+          paddingHorizontal: 24,
+          paddingVertical: 12,
+          borderRadius: 12
+        }}
+      >
+        <Text style={{ color: 'white', fontWeight: '600', fontSize: 18 }}>
+          Start English Test
+        </Text>
+      </Pressable>
+    </View>
+  );
+  
+  // Full UI (commented out for debugging)
+  /*
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#f9fafb' }}>
       <ScrollView style={{ flex: 1 }}>
@@ -176,4 +206,5 @@ export default function TestSelectionScreen({ navigation }: TestSelectionScreenP
       </ScrollView>
     </SafeAreaView>
   );
+  */
 }
