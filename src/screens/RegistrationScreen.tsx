@@ -63,7 +63,9 @@ export default function RegistrationScreen({ navigation }: RegistrationScreenPro
           console.log('Setting user:', user);
           setUser(user);
           console.log('Navigating to TestSelection...');
-          navigation.navigate('TestSelection');
+          setTimeout(() => {
+            navigation.navigate('TestSelection');
+          }, 100);
           return;
         } else {
           throw new Error('Failed to save user data');
@@ -73,7 +75,9 @@ export default function RegistrationScreen({ navigation }: RegistrationScreenPro
       console.log('New user registered, setting user:', user);
       setUser(user);
       console.log('Navigating to TestSelection...');
-      navigation.navigate('TestSelection');
+      setTimeout(() => {
+        navigation.navigate('TestSelection');
+      }, 100);
     } catch (error) {
       console.error('Registration error:', error);
       Alert.alert('Error', 'Failed to register. Please try again.');
@@ -188,7 +192,9 @@ export default function RegistrationScreen({ navigation }: RegistrationScreenPro
                 console.log('Setting test user:', testUser);
                 setUser(testUser);
                 console.log('Navigating to TestSelection from Testing Mode...');
-                navigation.navigate('TestSelection');
+                setTimeout(() => {
+                  navigation.navigate('TestSelection');
+                }, 100);
               }}
               className="rounded-xl py-3 px-6 items-center mt-4 bg-gray-500"
             >
