@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "cp test.html dist/index.html",
+  "buildCommand": "mkdir -p dist && cp test.html dist/index.html",
   "outputDirectory": "dist",
-  "installCommand": "npm install --legacy-peer-deps",
+  "installCommand": "echo 'Skipping npm install'",
   "routes": [
     {
       "src": "/(.*)",
