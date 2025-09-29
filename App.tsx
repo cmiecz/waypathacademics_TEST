@@ -27,15 +27,26 @@ const openai_api_key = Constants.expoConfig.extra.apikey;
 
 export default function App() {
   console.log('App component rendering...');
-  
-  return (
-    <GestureHandlerRootView className="flex-1">
-      <SafeAreaProvider>
-        <NavigationContainer>
-          <AppNavigator />
-          <StatusBar style="auto" />
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
-  );
+
+  try {
+    return (
+      <GestureHandlerRootView className="flex-1">
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <AppNavigator />
+            <StatusBar style="auto" />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    );
+  } catch (error) {
+    console.error('App rendering error:', error);
+    return (
+      <div style={{ padding: '20px', textAlign: 'center' }}>
+        <h1>Error Loading App</h1>
+        <p>Please check the console for details.</p>
+        <pre>{error?.toString()}</pre>
+      </div>
+    );
+  }
 }
