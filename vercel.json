@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "mkdir -p dist && cp test.html dist/index.html",
+  "buildCommand": "npx expo export --platform web --output-dir dist",
   "outputDirectory": "dist",
-  "installCommand": "echo 'Skipping npm install'"
+  "installCommand": "npm install --legacy-peer-deps"
 }

@@ -75,57 +75,19 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-// Simple test component to isolate the issue
-function SimpleTest() {
-  return (
-    <div style={{ 
-      padding: '20px', 
-      textAlign: 'center', 
-      fontFamily: 'Arial, sans-serif',
-      backgroundColor: '#f0f0f0',
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }}>
-      <h1 style={{ color: '#333', marginBottom: '20px' }}>ACT Test Prep - Debug Mode</h1>
-      <p style={{ color: '#666', marginBottom: '30px' }}>Testing basic React rendering...</p>
-      <button 
-        style={{
-          padding: '10px 20px',
-          backgroundColor: '#007AFF',
-          color: 'white',
-          border: 'none',
-          borderRadius: '8px',
-          fontSize: '16px',
-          cursor: 'pointer'
-        }}
-        onClick={() => alert('React is working!')}
-      >
-        Test React
-      </button>
-    </div>
-  );
-}
-
 export default function App() {
   console.log('App component rendering...');
 
-  // Temporarily use simple test component
-  return <SimpleTest />;
-
-  // Original app (commented out for debugging)
-  // return (
-  //   <ErrorBoundary>
-  //     <GestureHandlerRootView className="flex-1">
-  //       <SafeAreaProvider>
-  //         <NavigationContainer>
-  //           <AppNavigator />
-  //           <StatusBar style="auto" />
-  //         </NavigationContainer>
-  //       </SafeAreaProvider>
-  //     </GestureHandlerRootView>
-  //   </ErrorBoundary>
-  // );
+  return (
+    <ErrorBoundary>
+      <GestureHandlerRootView className="flex-1">
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <AppNavigator />
+            <StatusBar style="auto" />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
+  );
 }
