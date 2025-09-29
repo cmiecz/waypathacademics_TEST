@@ -73,29 +73,19 @@ export default function TestSelectionScreen({ navigation }: TestSelectionScreenP
   return (
     <SafeAreaView className="flex-1 bg-gray-50">
       <ScrollView className="flex-1">
-        <View className="web:max-w-web-content web:mx-auto web:w-full">
+        <View className="px-6 pt-8 pb-6">
           {/* Header */}
-          <View className="px-6 pt-8 pb-6 web:pt-12">
-            <View className="flex-row items-center justify-between web:flex-col web:items-start web:space-y-4">
-              <View className="web:text-center web:w-full">
-                <Text className="text-2xl font-bold text-gray-900 web:text-3xl">
-                  Welcome back, {currentUser?.name?.split(' ')[0]}!
-                </Text>
-                <Text className="text-gray-600 mt-1 web:text-lg">
-                  Choose a subject to begin your practice test
-                </Text>
-              </View>
-              <Pressable 
-                onPress={() => navigation.navigate('Profile')}
-                className="w-12 h-12 bg-blue-100 rounded-full items-center justify-center web:absolute web:top-8 web:right-6"
-              >
-                <Ionicons name="person" size={24} color="#3B82F6" />
-              </Pressable>
-            </View>
+          <View className="mb-8">
+            <Text className="text-2xl font-bold text-gray-900 mb-2">
+              Welcome back, {currentUser?.name?.split(' ')[0]}!
+            </Text>
+            <Text className="text-gray-600">
+              Choose a subject to begin your practice test
+            </Text>
           </View>
 
           {/* Subject Cards */}
-          <View className="px-6 space-y-4 web:grid web:grid-cols-2 web:gap-6 web:space-y-0 desktop:grid-cols-3">
+          <View className="space-y-4">
           {subjects.map((subject) => (
             <Pressable
               key={subject.name}
@@ -146,10 +136,10 @@ export default function TestSelectionScreen({ navigation }: TestSelectionScreenP
         </View>
 
           {/* Admin Access */}
-          <View className="px-6 mt-8 mb-8">
+          <View className="mt-8 mb-8">
             <Pressable
               onPress={() => navigation.navigate('AdminLogin')}
-              className="bg-gray-800 p-4 rounded-xl flex-row items-center justify-center web:max-w-md web:mx-auto"
+              className="bg-gray-800 p-4 rounded-xl flex-row items-center justify-center"
             >
               <Ionicons name="settings-outline" size={20} color="white" />
               <Text className="text-white font-semibold ml-2">
