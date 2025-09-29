@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npx expo export --platform web --output-dir dist",
+  "buildCommand": "cp test.html dist/index.html",
   "outputDirectory": "dist",
   "installCommand": "npm install --legacy-peer-deps",
   "routes": [
