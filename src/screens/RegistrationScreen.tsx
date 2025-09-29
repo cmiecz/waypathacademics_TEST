@@ -60,6 +60,9 @@ export default function RegistrationScreen({ navigation }: RegistrationScreenPro
         if (result.error.code === '23505' || result.error.message?.includes('duplicate')) {
           // User already exists, just log them in
           console.log('User already exists, logging in...');
+          setUser(user);
+          navigation.navigate('TestSelection');
+          return;
         } else {
           throw new Error('Failed to save user data');
         }
