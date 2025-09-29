@@ -60,7 +60,9 @@ export default function RegistrationScreen({ navigation }: RegistrationScreenPro
         if (result.error.code === '23505' || result.error.message?.includes('duplicate')) {
           // User already exists, just log them in
           console.log('User already exists, logging in...');
+          console.log('Setting user:', user);
           setUser(user);
+          console.log('Navigating to TestSelection...');
           navigation.navigate('TestSelection');
           return;
         } else {
@@ -68,7 +70,9 @@ export default function RegistrationScreen({ navigation }: RegistrationScreenPro
         }
       }
 
+      console.log('New user registered, setting user:', user);
       setUser(user);
+      console.log('Navigating to TestSelection...');
       navigation.navigate('TestSelection');
     } catch (error) {
       console.error('Registration error:', error);

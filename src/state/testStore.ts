@@ -41,7 +41,9 @@ interface TestStore extends TestState {
 // Store actions
 const storeActions = {
   setUser: (user: User) => {
+    console.log('Store: Setting user to:', user);
     currentState.currentUser = user;
+    console.log('Store: Current state after setUser:', currentState);
     notifyListeners();
   },
   

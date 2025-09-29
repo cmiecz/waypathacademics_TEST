@@ -37,6 +37,7 @@
     "@shopify/react-native-skia": "v2.0.0-next.4",
     "@supabase/supabase-js": "^2.58.0",
     "clsx": "^2.1.1",
+    "core-util-is": "^1.0.3",
     "date-fns": "^4.1.0",
     "expo": "53.0.9",
     "expo-application": "~6.1.4",
