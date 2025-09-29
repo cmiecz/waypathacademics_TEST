@@ -43,6 +43,8 @@ const subjects = [
 
 export default function TestSelectionScreen({ navigation }: TestSelectionScreenProps) {
   const { currentUser, startTestSession, setPassages } = useTestStore();
+  
+  console.log('TestSelectionScreen rendering, currentUser:', currentUser);
 
   const handleSubjectSelect = async (subject: 'English' | 'Math' | 'Reading' | 'Science') => {
     try {

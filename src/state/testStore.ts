@@ -13,6 +13,7 @@ let currentState: TestState = {
 const listeners = new Set<() => void>();
 
 const notifyListeners = () => {
+  console.log('Store: Notifying', listeners.size, 'listeners');
   listeners.forEach(listener => listener());
 };
 
@@ -147,9 +148,16 @@ export const useTestStore = (selector?: (state: TestState) => any) => {
   const [, forceUpdate] = React.useReducer(x => x + 1, 0);
   
   React.useEffect(() => {
-    const listener = () => forceUpdate();
+    const listener = () => {
+      console.log('Store: Component re-rendering due to state change');
+      forceUpdate();
+    };
     listeners.add(listener);
-    return () => listeners.delete(listener);
+    console.log('Store: Component subscribed, total listeners:', listeners.size);
+    return () => {
+      listeners.delete(listener);
+      console.log('Store: Component unsubscribed, total listeners:', listeners.size);
+    };
   }, []);
 
   if (selector) {

@@ -178,13 +178,16 @@ export default function RegistrationScreen({ navigation }: RegistrationScreenPro
             {/* Testing Mode Button */}
             <Pressable
               onPress={() => {
+                console.log('Testing Mode button pressed');
                 const testUser: User = {
                   id: 'test_user_123',
                   name: 'Test User',
                   email: 'test@example.com',
                   registeredAt: new Date(),
                 };
+                console.log('Setting test user:', testUser);
                 setUser(testUser);
+                console.log('Navigating to TestSelection from Testing Mode...');
                 navigation.navigate('TestSelection');
               }}
               className="rounded-xl py-3 px-6 items-center mt-4 bg-gray-500"
