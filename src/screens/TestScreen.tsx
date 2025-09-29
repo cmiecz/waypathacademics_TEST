@@ -28,10 +28,20 @@ export default function TestScreen({ navigation }: TestScreenProps) {
   
   const currentPassage = getCurrentPassage();
 
+  console.log('TestScreen - currentPassage:', currentPassage);
+  console.log('TestScreen - currentSession:', currentSession);
+  console.log('TestScreen - passages:', passages);
+
   if (!currentPassage || !currentSession) {
     return (
       <SafeAreaView className="flex-1 bg-white items-center justify-center">
         <Text className="text-lg text-gray-600">No test session active</Text>
+        <Text className="text-sm text-gray-500 mt-2">
+          Passage: {currentPassage ? 'Found' : 'Not found'}
+        </Text>
+        <Text className="text-sm text-gray-500">
+          Session: {currentSession ? 'Found' : 'Not found'}
+        </Text>
         <Pressable
           onPress={() => navigation.navigate('TestSelection')}
           className="mt-4 bg-blue-600 px-6 py-3 rounded-xl"
